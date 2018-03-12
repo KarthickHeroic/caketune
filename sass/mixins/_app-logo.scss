@@ -1,0 +1,9 @@
+// example: @include app-logo("logo2x.png", 100, 50);
+
+@mixin app-logo($image, $width, $height) {
+
+    background-image: url($image);
+    background-size: $width+px $height+px; 
+    background-repeat: no-repeat;
+}
+

@@ -1,0 +1,6 @@
+md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    border-color:$maincolor;
+}
+md-input-container:not(.md-input-invalid).md-input-focused label {
+    color: $maincolor;
+}

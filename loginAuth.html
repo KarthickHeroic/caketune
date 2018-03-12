@@ -1,0 +1,143 @@
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="style/screen.css">
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
+ 
+</head>
+<body ng-app="BlankApp" ng-cloak id="login" ng-controller="myCtrl">
+ 
+          <div layout="column" layout-align="center center" class="height100 ">
+              <div class="logo">
+                <img src="images/logo.png" alt="" />
+              </div>
+             
+
+              <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
+                <div class="loginview" >                
+                  <div class="loginform">
+                  <div id="firebaseui-auth-container"></div>
+                  </div>
+                </div>
+              </md-whiteframe>   
+             
+        </div>
+
+ 
+        
+  
+  
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBeiuEndX8d5Y_2vNX-SLwd3xMDBfv193Y",
+      authDomain: "test-e80c6.firebaseapp.com",
+      databaseURL: "https://test-e80c6.firebaseio.com",
+      projectId: "test-e80c6",
+      storageBucket: "test-e80c6.appspot.com",
+      messagingSenderId: "533571532202"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">   
+   
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    //  var MyA = angular.module('BlankApp', ['ngMaterial']);
+    // angular.module('BlankApp', ['ngMaterial']);
+  var app = angular.module('BlankApp', ['ngMaterial']);
+  app.controller('myCtrl', function ($scope) {
+     
+    $scope.myFunc = function() {
+      var fbemail = $scope.email; 
+       var fbpassword = $scope.password;
+       var logindetails = firebase.database().ref("Login/");
+
+      logindetails.update({
+        1: {
+          Email:fbemail,
+          Password: fbpassword
+        }        
+      });
+    }
+   
+
+  });  
+      
+       
+  
+  // firebase.auth().languageCode = 'it';
+  // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+  //     'size': 'invisible',
+  //     'callback': function (response) {
+  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
+  //       onSignInSubmit();
+  //     }
+  //   });
+  //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+ 
+
+  </script>
+<!--
+  <script type="text/javascript">
+    // FirebaseUI config.
+    var uiConfig = {
+      signInSuccessUrl: 'dashboard.html',
+      signInOptions: [
+        // Leave the lines as is for the providers you want to offer your users.
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID
+      ],
+      // Terms of service url.
+      tosUrl: '<your-tos-url>'
+    };
+
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+-->
+    
+     <script type="text/javascript">
+         firebase.auth().signInWithPopup(provider);
+         firebase.auth().languageCode = 'pt';
+         var provider = new firebase.auth.GoogleAuthProvider();
+   firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+    </script>
+  
+</body>
+</html>

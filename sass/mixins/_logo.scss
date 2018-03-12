@@ -1,0 +1,8 @@
+// example: @include app-logo-per("logo2x.png", 100%);
+
+@mixin app-logo-per($image, $perc) {
+
+    background-image: url($image);
+    background-size: $perc; 
+    background-repeat: no-repeat;
+}

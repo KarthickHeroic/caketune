@@ -1,0 +1,80 @@
+#dashboard
+{
+    .contentview
+    {
+        padding: 20px;
+    }
+    .formtitle
+    {
+        background-color:$secondrycolor;
+        color:$whitecolor;
+        padding: 20px;
+        text-transform: uppercase;
+    }
+    .hint {
+        position: absolute;
+        right: 0px;
+        bottom: 6px;
+        font-size: 12px;
+        line-height: 14px;
+        transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+        color: #d0d0d0; 
+      }
+    .leftmenu
+    {
+        p, i{
+            color:$leftmenutxtcolor;
+            font-weight: 300;
+        }
+        
+        .flex-15
+        {
+            position: relative;
+            height: 100%;
+            background-color:$maincolor;
+            color:$whitecolor;
+        }
+        .flex-85
+        {
+            height: 100%;
+            background-color: $primarycolor;
+        }
+    }
+    .circlecontainer
+    {
+        padding: 50px;
+
+        p
+        {
+            color:$textcolor;
+        }
+        .circle, .circledisable
+        {
+            width: 80px;
+            height: 80px;
+            background-color: $maincolor;
+            img
+            {
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                left: 50%;               
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
+        }
+        .circledisable
+        {
+            background-color: $disablecolor;
+        }
+    }
+    .contentview
+    {
+        .circle
+        {
+            background-color: $maincolor;
+        }
+       
+    }
+    
+}

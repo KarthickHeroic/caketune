@@ -1,0 +1,142 @@
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
+  <link rel="stylesheet" href="style/screen.css">
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
+</head>
+<body ng-app="BlankApp" ng-cloak id="login" ng-controller="myCtrl">
+ 
+          <div layout="column" layout-align="center center" class="height100 ">
+              <div class="logo">
+                <img src="images/logo.png" alt="" />
+              </div>
+             
+
+              <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
+                <div class="signupview" >                
+                  <div class="loginform">
+                    <md-input-container class="md-block">
+                      <label>Name</label>
+                      <input ng-model="name">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                      <label>Mobile</label>
+                      <input ng-model="mobile">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                      <label>Email</label>
+                      <input ng-model="user.email">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                      <label>Password</label>
+                      <input ng-model="user.password">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                      <label>Confirm Password</label>
+                      <input ng-model="user.password">
+                    </md-input-container>
+                    <div layout="row" layout-align="center center">
+                    <!-- <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Register</md-button> -->
+                    <md-button class="md-raised md-primary nomargin" ng-click="myFunc()">Register</md-button>
+                    </div>
+                  </div>
+                </div>
+              </md-whiteframe>   
+              <div class="signtxt ptop-10">
+                Already have an account?<a href="login.html">Login</a>
+              </div>
+             
+        </div>
+
+ 
+        
+  
+  
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+          <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBeiuEndX8d5Y_2vNX-SLwd3xMDBfv193Y",
+      authDomain: "test-e80c6.firebaseapp.com",
+      databaseURL: "https://test-e80c6.firebaseio.com",
+      projectId: "test-e80c6",
+      storageBucket: "test-e80c6.appspot.com",
+      messagingSenderId: "533571532202"
+    };
+    firebase.initializeApp(config);
+  </script>
+    
+    
+  <!-- Your application bootstrap  -->
+ 
+    
+    
+    <script type="text/javascript">     
+        
+   
+  var app = angular.module('BlankApp', ['ngMaterial']);
+  app.controller('myCtrl', function ($scope) {
+    $scope.myFunc = function() {
+      var abc = $scope.name; 
+      console.log(abc);
+    }  
+  });   
+        
+//        firebase.auth().createUserWithEmailAndPassword('swathi@gmail.com', 'swathi123').catch(function(error) {
+//  // Handle Errors here.
+//  var errorCode = error.code;
+//  var errorMessage = error.message;
+//  // ...
+//});
+        firebase.auth().signInWithEmailAndPassword('swathi@gmail.com', 'swathi123').then(function(data){
+            console.log('2');
+//    console.log(JSON.stringify(data));
+            var user = firebase.auth().currentUser;
+var name, email, photoUrl, uid, emailVerified;
+
+if (user != null) { 
+  email = user.email; 
+
+  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                   // this value to authenticate with your backend server, if
+                   // you have one. Use User.getToken() instead.
+    console.log(uid);
+    
+}
+        else
+            {
+                console.log("none");
+            }
+            
+            
+        
+
+});
+        firebase.auth().signOut().then(function() {
+            console.log('1');
+   console.log('signout');
+}).catch(function(error) {
+  console.log(error);
+});
+        
+        
+        
+        
+
+
+  </script>
+  
+</body>
+</html>
