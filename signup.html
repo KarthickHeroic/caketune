@@ -28,19 +28,19 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                       <label>Email</label>
-                      <input ng-model="user.email">
+                      <input ng-model="email">
                     </md-input-container>
                     <md-input-container class="md-block">
                       <label>Password</label>
-                      <input ng-model="user.password">
+                      <input ng-model="password">
                     </md-input-container>
                     <md-input-container class="md-block">
                       <label>Confirm Password</label>
-                      <input ng-model="user.password">
+                      <input ng-model="rpassword">
                     </md-input-container>
                     <div layout="row" layout-align="center center">
                     <!-- <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Register</md-button> -->
-                    <md-button class="md-raised md-primary nomargin" ng-click="myFunc()">Register</md-button>
+                    <md-button class="md-raised md-primary nomargin" ng-click="RegisterFunc()">Register</md-button>
                     </div>
                   </div>
                 </div>
@@ -64,79 +64,117 @@
   <!-- Angular Material Library -->
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-          <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyBeiuEndX8d5Y_2vNX-SLwd3xMDBfv193Y",
-      authDomain: "test-e80c6.firebaseapp.com",
-      databaseURL: "https://test-e80c6.firebaseio.com",
-      projectId: "test-e80c6",
-      storageBucket: "test-e80c6.appspot.com",
-      messagingSenderId: "533571532202"
-    };
-    firebase.initializeApp(config);
-  </script>
-    
-    
-  <!-- Your application bootstrap  -->
- 
-    
-    
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
+
+    <!-- Firebase config -->
+  <script src="js/firebaseInit.js"></script>
+  
+    <!-- angular connection  -->
     <script type="text/javascript">     
         
    
-  var app = angular.module('BlankApp', ['ngMaterial']);
-  app.controller('myCtrl', function ($scope) {
-    $scope.myFunc = function() {
-      var abc = $scope.name; 
-      console.log(abc);
-    }  
-  });   
-        
-//        firebase.auth().createUserWithEmailAndPassword('swathi@gmail.com', 'swathi123').catch(function(error) {
-//  // Handle Errors here.
-//  var errorCode = error.code;
-//  var errorMessage = error.message;
-//  // ...
-//});
-        firebase.auth().signInWithEmailAndPassword('swathi@gmail.com', 'swathi123').then(function(data){
-            console.log('2');
-//    console.log(JSON.stringify(data));
-            var user = firebase.auth().currentUser;
-var name, email, photoUrl, uid, emailVerified;
+      var app = angular.module('BlankApp', ['ngMaterial']);
+      app.controller('myCtrl', function ($scope) {
+        $scope.RegisterFunc = function() {     
+          
+          firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).then(function(user) {
+          var user = firebase.auth().currentUser;              
+                var name, email, password, uidd, mobile;
+                if (user != null) 
+                { 
+                  console.log($scope.name);
+                  name = $scope.name;
+                  email = $scope.email; 
+                  mobile = $scope.mobile;
+                  password = $scope.password;
+                  uidd = user.uid;  
+                  console.log(name + email + password + uidd);                  
+                  var logindetails = firebase.database().ref("Users/");
+                  logindetails.update({
+                    uid: {
+                    Name:name,
+                    Mobile:mobile               
+                    }        
+                });
+                  
+                    // The user's ID, unique to the Firebase project. Do NOT use
+                    // this value to authenticate with your backend server, if
+                    // you have one. Use User.getToken() instead.
+                }
+                else
+                {
+                    console.log("none");
+                }
+        }, function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message; 
+          console.log(errorMessage);
+      });
 
-if (user != null) { 
-  email = user.email; 
+          // firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).catch(function(error) 
+          // {
+          //   // Handle Errors here.
+          //     var errorCode = error.code;
+          //     var errorMessage = error.message;
+          //     if (errorCode != null) 
+          //     {
+          //       console.log(errorMessage);
+          //     }
+          //     else
+          //     {
+          //       console.log('enter');
+          //       firebase.auth().signInWithEmailAndPassword($scope.email, $scope.password).then(function(data) {
+          //       var user = firebase.auth().currentUser;
+          //       var name, email, password, uid, mobile;
+          //       if (user != null) 
+          //       { 
+          //         name = user.name;
+          //         email = user.email; 
+          //         Mobile = user.mobile;
+          //         password = user.password;
+          //         uid = user.uid;  
+          //         console.log(name + email + password + uid);
 
-  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                   // this value to authenticate with your backend server, if
-                   // you have one. Use User.getToken() instead.
-    console.log(uid);
+          //         var fbemail = $scope.email; 
+          //         var fbpassword = $scope.password;
+          //         var logindetails = firebase.database().ref("Users/");
+          //         logindetails.update({
+          //           uid: {
+          //           Name:name,
+          //           Mobile:mobile               
+          //           }        
+          //       });
+                  
+          //           // The user's ID, unique to the Firebase project. Do NOT use
+          //           // this value to authenticate with your backend server, if
+          //           // you have one. Use User.getToken() instead.
+          //       }
+          //       else
+          //       {
+          //           console.log("none");
+          //       }
+          //       });
+          //     }
+          // });
+      
+        }  
+      });
     
-}
-        else
-            {
-                console.log("none");
-            }
-            
-            
-        
+    
 
-});
-        firebase.auth().signOut().then(function() {
-            console.log('1');
-   console.log('signout');
-}).catch(function(error) {
-  console.log(error);
-});
-        
-        
-        
-        
+ 
+    
+    
 
 
+        // firebase.auth().signOut().then(function() {
+        // console.log('1');
+        // console.log('signout');
+        // }).catch(function(error) 
+        // {
+        //   console.log(error);
+        // });
   </script>
-  
 </body>
 </html>

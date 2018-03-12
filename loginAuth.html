@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style/screen.css">
   <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
- 
 </head>
 <body ng-app="BlankApp" ng-cloak id="login" ng-controller="myCtrl">
  
@@ -15,22 +14,14 @@
               <div class="logo">
                 <img src="images/logo.png" alt="" />
               </div>
-             
-
               <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
                 <div class="loginview" >                
                   <div class="loginform">
                   <div id="firebaseui-auth-container"></div>
                   </div>
                 </div>
-              </md-whiteframe>   
-             
+              </md-whiteframe>                
         </div>
-
- 
-        
-  
-  
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
@@ -53,7 +44,6 @@
   </script>
   <!-- Your application bootstrap  -->
   <script type="text/javascript">   
-   
     /**
      * You must include the dependency on 'ngMaterial' 
      */
@@ -61,7 +51,6 @@
     // angular.module('BlankApp', ['ngMaterial']);
   var app = angular.module('BlankApp', ['ngMaterial']);
   app.controller('myCtrl', function ($scope) {
-     
     $scope.myFunc = function() {
       var fbemail = $scope.email; 
        var fbpassword = $scope.password;
@@ -74,12 +63,7 @@
         }        
       });
     }
-   
-
-  });  
-      
-       
-  
+  });
   // firebase.auth().languageCode = 'it';
   // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
   //     'size': 'invisible',
@@ -89,9 +73,8 @@
   //     }
   //   });
   //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
- 
+</script> 
 
-  </script>
 <!--
   <script type="text/javascript">
     // FirebaseUI config.
@@ -116,12 +99,11 @@
     ui.start('#firebaseui-auth-container', uiConfig);
   </script>
 -->
-    
-     <script type="text/javascript">
-         firebase.auth().signInWithPopup(provider);
-         firebase.auth().languageCode = 'pt';
-         var provider = new firebase.auth.GoogleAuthProvider();
-   firebase.auth().signInWithPopup(provider).then(function(result) {
+<script type="text/javascript">
+  firebase.auth().signInWithPopup(provider);
+  firebase.auth().languageCode = 'pt';
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
   // The signed-in user info.
@@ -137,7 +119,6 @@
   var credential = error.credential;
   // ...
 });
-    </script>
-  
+</script> 
 </body>
 </html>
