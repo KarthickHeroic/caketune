@@ -34,13 +34,9 @@
               </md-whiteframe>   
                 <div class="signtxt ptop-10">
                  Not a registered user yet?
-                  <a href="login.html">Sign up now!</a>
+                  <a href="signup.html">Sign up now!</a>
                 </div>
         </div>
-
- 
-        
-  
   
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -50,18 +46,8 @@
   <!-- Angular Material Library -->
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyBeiuEndX8d5Y_2vNX-SLwd3xMDBfv193Y",
-      authDomain: "test-e80c6.firebaseapp.com",
-      databaseURL: "https://test-e80c6.firebaseio.com",
-      projectId: "test-e80c6",
-      storageBucket: "test-e80c6.appspot.com",
-      messagingSenderId: "533571532202"
-    };
-    firebase.initializeApp(config);
-  </script>
+     <script src="js/firebaseInit.js"></script>
+
   <!-- Your application bootstrap  -->
   <script type="text/javascript">   
    
@@ -75,28 +61,27 @@
     $scope.myFunc = function() {
       var fbemail = $scope.email; 
        var fbpassword = $scope.password;
-       var logindetails = firebase.database().ref("Login/");
-
-      logindetails.update({
-        1: {
-          Email:fbemail,
-          Password: fbpassword
-        }        
-      });
+       var logindetails = firebase.database().ref("Login/");    
+        
+        firebase.auth().signInWithEmailAndPassword(fbemail, fbpassword).then(function(data){
+   var user = firebase.auth().currentUser;
+            var emailVerified = user.emailVerified;
+           if(emailVerified==true)
+               {
+                   
+                   window.location.href = "phverify.html";
+               }
+            else
+                {
+                    alert("Your mail not verified. Please verify your account email address")
+                }
+            
+}
+)
     }
    
 
   });  
-  
-  firebase.auth().languageCode = 'it';
-  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-      'size': 'invisible',
-      'callback': function (response) {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        onSignInSubmit();
-      }
-    });
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
  
   </script>
   

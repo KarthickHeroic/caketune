@@ -22,17 +22,18 @@
                       <md-input-container class="md-block">
                   
                   
-            <md-select ng-model="country" ng-disabled="true">
+            <md-select ng-model="country" ng-disabled="true" aria-label="country" ng-change="changeCount(country)">
                     <md-option value="+91" ng-selected="true" > +91 </md-option>
             </md-select>  </md-input-container>
+                          
+                          
                            <md-input-container class="md-block">
                     <label>Phone Number</label>
                     <input ng-model="phonenumber">  </md-input-container>
-                      </div>                    
-                       
-                  
-                  <div id="recaptcha-container"></div>
-                    <md-button class="md-raised md-primary nomargin mtop-15" ng-click="VerifyFunc()" id="sign-in-button">Verify</md-button>
+                      </div>    
+                      
+                      <div id="recaptcha-container"></div>
+                    <md-button class="md-raised md-primary nomargin mtop-15" ng-click="VerifyFunc()">Verify</md-button>
                   </div>
                 </div>
                    <div class="loginview" id="codeverify">  
@@ -41,12 +42,14 @@
                     <label>Code</label>
                     <input ng-model="verificationcode">
                   </md-input-container>
-                         <md-button class="md-raised md-primary nomargin " ng-click="RegisterFunc()" id="sign-in-button">Confirm</md-button>
+                         <md-button class="md-raised md-primary nomargin " ng-click="RegisterFunc()">Confirm</md-button>
                        </div>
                   </div>
               </md-whiteframe>   
               <div id="success">
-              Your Registration is Success!
+                  <h1>Signup Successful</h1>
+              You have registered succesfully!
+                  <p>Click to <a href="login.html">login</a> here!</p>
               </div>
         </div>
   <!-- Angular Material requires Angular.js Libraries -->
@@ -60,139 +63,53 @@
 
     
     
-  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyBeiuEndX8d5Y_2vNX-SLwd3xMDBfv193Y",
-      authDomain: "test-e80c6.firebaseapp.com",
-      databaseURL: "https://test-e80c6.firebaseio.com",
-      projectId: "test-e80c6",
-      storageBucket: "test-e80c6.appspot.com",
-      messagingSenderId: "533571532202"
-    };
-    firebase.initializeApp(config);
-  </script>
-  <!-- Your application bootstrap  -->
-  <script type="text/javascript">   
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>    
+     <script src="js/firebaseInit.js"></script>    
 
-      var myApp = angular.module('myApp', ['ngIntlTelInput']);
-      angular.module('myApp')
-  .config(function (ngIntlTelInputProvider) {
-    ngIntlTelInputProvider.set({initialCountry: 'us'});
-  });
-
-  var app = angular.module('BlankApp', ['ngMaterial']);
-      var phverify = document.getElementById("phoneverify");
-      var cdverify = document.getElementById("codeverify");
-       var logo = document.getElementById("logo");
-      var success = document.getElementById("success");
-      success.style.display = "none";
-        cdverify.style.display = "none";
-  app.controller('myCtrl', function ($scope) {
-      
-      console.log('countrycode'+$scope.country);
-      
-       window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-      recaptchaVerifier.render().then(function(widgetId) {
-  window.recaptchaWidgetId = widgetId;
-});
-
-       $scope.VerifyFunc = function() {
-      var phone = $scope.phonenumber;      
-      firebase.auth().signInWithPhoneNumber(phone, window.recaptchaVerifier)
-      .then(function (confirmationResult) {
-        window.confirmationResult = confirmationResult;
-          phverify.style.display = "none";
-          cdverify.style.display = "block";
-      });
-       }
-
-//          window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-//  'size': 'invisible',
-//  'callback': function(response) {
-//    // reCAPTCHA solved, allow signInWithPhoneNumber.
-//    onSignInSubmit();
-//  }
-      
-          $scope.RegisterFunc = function() {
+<script type="text/javascript">   
+ var app = angular.module('BlankApp', ['ngMaterial']);
+ var phverify = document.getElementById("phoneverify");
+ var cdverify = document.getElementById("codeverify");
+ var logo = document.getElementById("logo");
+ var success = document.getElementById("success");
+ var fbPhoneNumber; success.style.display = "none";
+ cdverify.style.display = "none";
+ logo.style.display = "block";
+ app.controller('myCtrl', function($scope) {
+     $scope.changeCount = function(obj) {
+         fbPhoneNumber = obj;         
+         fbPhoneNumber = fbPhoneNumber;  
+     };
+     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+     recaptchaVerifier.render().then(function(widgetId) {
+         window.recaptchaWidgetId = widgetId;
+     });
+     $scope.VerifyFunc = function() {
+           fbPhoneNumber = fbPhoneNumber + $scope.phonenumber;
+         firebase.auth().signInWithPhoneNumber(fbPhoneNumber, window.recaptchaVerifier)
+             .then(function(confirmationResult) {
+                 window.confirmationResult = confirmationResult;
+                 phverify.style.display = "none";
+                 cdverify.style.display = "block";
+             });
+     }
+     $scope.RegisterFunc = function() {
          window.confirmationResult.confirm($scope.verificationcode)
-        .then(function (result) {
-            var pagelogin = document.getElementById("login");
-            pagelogin.classList.add("loginbackground");
-               phverify.style.display = "none";
-          cdverify.style.display = "none";
-        }, function (error) {
-          alert(error);
-        }); 
+             .then(function(result) {
+             console.log("entry");
+                 var pagelogin = document.getElementById("login");
+                 pagelogin.classList.add("loginbackground");
+                 phverify.style.display = "none";
+                 cdverify.style.display = "none";
+                 cdverify.style.display = "none";
+                 logo.style.display = "none";
+                 success.style.display = "block";
+             }, function(error) {
+                 alert(error);
+             });
 
-    }
-});
-   
-
-
-//
-//      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-//      firebase.auth().signInWithPhoneNumber("+919072644297", window.recaptchaVerifier)
-//.then(function(confirmationResult) {
-//        window.confirmationResult = confirmationResult;
-//      a(confirmationResult);
-//      });
-//var myFunction = function() {
-// 
-//};
-
-
-
-
-  // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-  //     'size': 'invisible',
-  //     'callback': function (response) {
-  //       // reCAPTCHA solved, allow signInWithPhoneNumber.
-  //       onSignInSubmit();
-  //     }
-  //   });
-  //   window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+     }
+ });
 </script> 
-<!-- 
-  <script type="text/javascript">
-    // FirebaseUI config.
-    var uiConfig = {
-      signInSuccessUrl: 'dashboard.html',
-      signInOptions: [
-        // Leave the lines as is for the providers you want to offer your users.
-        firebase.auth.PhoneAuthProvider.PROVIDER_ID
-      ],
-      // Terms of service url.
-      tosUrl: '<your-tos-url>'
-    };
-
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
-  </script> -->
-
-<!-- <script type="text/javascript">
-  firebase.auth().signInWithPopup(provider);
-  firebase.auth().languageCode = 'pt';
-  var provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Google Access Token. You can use it to access the Google API.
-  var token = result.credential.accessToken;
-  // The signed-in user info.
-  var user = result.user;
-  // ...
-}).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
-</script>  -->
 </body>
 </html>

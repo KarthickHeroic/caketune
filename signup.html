@@ -64,94 +64,36 @@
         
    
       var app = angular.module('BlankApp', ['ngMaterial']);
-      app.controller('myCtrl', function ($scope) {
-        $scope.RegisterFunc = function() {  
+  app.controller('myCtrl', function($scope) {
+      $scope.RegisterFunc = function() {
           firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).then(function(user) {
-          var user = firebase.auth().currentUser;              
-                var name, email, password, uidd, mobile;
-                if (user != null) 
-                { 
+              var user = firebase.auth().currentUser;
+              user.sendEmailVerification().then(function() {
+            console.log("send");
+            var name, email, password, uidd;
+              if (user != null) {
                   name = $scope.name;
-                  email = $scope.email; 
-                  mobile = $scope.mobile;
+                  email = $scope.email;
                   password = $scope.password;
-                  uidd = user.uid;                
+                  uidd = user.uid;
                   var logindetails = firebase.database().ref("Users/" + uidd);
                   logindetails.update({
-                    Name:name,
-                    Mobile:mobile  
-                });
-                }                
-        }, function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message; 
-          console.log(errorMessage);
-      });
+                      Name: name
+                  });
+              }
+}).catch(function(error) {
+  console.log("send-no");
+});
+          
+          }, function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+             alert(errorMessage);
+          });
+      }
+});
 
-          // firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).catch(function(error) 
-          // {
-          //   // Handle Errors here.
-          //     var errorCode = error.code;
-          //     var errorMessage = error.message;
-          //     if (errorCode != null) 
-          //     {
-          //       console.log(errorMessage);
-          //     }
-          //     else
-          //     {
-          //       console.log('enter');
-          //       firebase.auth().signInWithEmailAndPassword($scope.email, $scope.password).then(function(data) {
-          //       var user = firebase.auth().currentUser;
-          //       var name, email, password, uid, mobile;
-          //       if (user != null) 
-          //       { 
-          //         name = user.name;
-          //         email = user.email; 
-          //         Mobile = user.mobile;
-          //         password = user.password;
-          //         uid = user.uid;  
-          //         console.log(name + email + password + uid);
-
-          //         var fbemail = $scope.email; 
-          //         var fbpassword = $scope.password;
-          //         var logindetails = firebase.database().ref("Users/");
-          //         logindetails.update({
-          //           uid: {
-          //           Name:name,
-          //           Mobile:mobile               
-          //           }        
-          //       });
-                  
-          //           // The user's ID, unique to the Firebase project. Do NOT use
-          //           // this value to authenticate with your backend server, if
-          //           // you have one. Use User.getToken() instead.
-          //       }
-          //       else
-          //       {
-          //           console.log("none");
-          //       }
-          //       });
-          //     }
-          // });
-      
-        }  
-      });
-    
-    
-
- 
-    
-    
-
-
-        // firebase.auth().signOut().then(function() {
-        // console.log('1');
-        // console.log('signout');
-        // }).catch(function(error) 
-        // {
-        //   console.log(error);
-        // });
   </script>
 </body>
 </html>

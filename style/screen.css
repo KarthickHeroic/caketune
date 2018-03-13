@@ -493,52 +493,52 @@ header .logo img {
   -o-transition: background 5s ease-in 0;
   transition: background 5s ease-in 0;
 }
-/* line 9, ../sass/layout/_login.scss */
+/* line 10, ../sass/layout/_login.scss */
 #login .logo img {
   height: 80px;
 }
-/* line 14, ../sass/layout/_login.scss */
+/* line 15, ../sass/layout/_login.scss */
 #login .height100 {
   height: 100%;
 }
-/* line 15, ../sass/layout/_login.scss */
+/* line 16, ../sass/layout/_login.scss */
 #login .signupview {
   width: 400px;
   height: 550px;
   background-color: #fff;
 }
-/* line 19, ../sass/layout/_login.scss */
+/* line 20, ../sass/layout/_login.scss */
 #login .signupview .loginform {
   padding: 10px 30px 0 30px;
 }
-/* line 23, ../sass/layout/_login.scss */
+/* line 24, ../sass/layout/_login.scss */
 #login .signupview .md-button {
   min-width: 220px;
   min-height: 40px;
 }
-/* line 31, ../sass/layout/_login.scss */
+/* line 32, ../sass/layout/_login.scss */
 #login .loginview {
   width: 400px;
   height: 250px;
   background-color: #fff;
 }
-/* line 35, ../sass/layout/_login.scss */
+/* line 36, ../sass/layout/_login.scss */
 #login .loginview .loginform {
   padding: 10px 30px 0 30px;
 }
-/* line 41, ../sass/layout/_login.scss */
+/* line 42, ../sass/layout/_login.scss */
 #login .signtxt {
   color: #ffffff;
   font-weight: 300;
 }
-/* line 45, ../sass/layout/_login.scss */
+/* line 46, ../sass/layout/_login.scss */
 #login .signtxt a {
   color: #ffffff;
   font-weight: 400;
   padding-left: 5px;
 }
 
-/* line 54, ../sass/layout/_login.scss */
+/* line 55, ../sass/layout/_login.scss */
 .loginbackground {
   background: #ffffff;
   /* Old browsers */
@@ -556,6 +556,16 @@ header .logo img {
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#393186', GradientType=0 ) !important;
   /* IE6-9 */
+}
+
+/* line 59, ../sass/layout/_login.scss */
+#success {
+  text-align: center;
+  color: #ffffff;
+}
+/* line 65, ../sass/layout/_login.scss */
+#success p a {
+  color: #ffffff;
 }
 
 /* No files to import found in grid/**\/* */
