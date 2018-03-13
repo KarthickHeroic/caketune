@@ -421,33 +421,33 @@ body {
   font-family: "Ubuntu", sans-serif;
 }
 
-/* line 13, ../sass/layout/_layout.scss */
+/* line 14, ../sass/layout/_layout.scss */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 21, ../sass/layout/_layout.scss */
+/* line 22, ../sass/layout/_layout.scss */
 :after, :before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 27, ../sass/layout/_layout.scss */
+/* line 28, ../sass/layout/_layout.scss */
 img {
   vertical-align: middle;
 }
 
-/* line 31, ../sass/layout/_layout.scss */
+/* line 32, ../sass/layout/_layout.scss */
 .img-responsive {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
-/* line 36, ../sass/layout/_layout.scss */
+/* line 37, ../sass/layout/_layout.scss */
 header {
   height: 50px;
   position: relative;
@@ -456,16 +456,16 @@ header {
   -moz-box-shadow: 0px 0px 6px 2px #c3c3c3;
   box-shadow: 0px 0px 6px 2px #c3c3c3;
 }
-/* line 43, ../sass/layout/_layout.scss */
+/* line 44, ../sass/layout/_layout.scss */
 header .logo {
   position: absolute;
 }
-/* line 45, ../sass/layout/_layout.scss */
+/* line 46, ../sass/layout/_layout.scss */
 header .logo img {
   height: 50px;
 }
 
-/* line 52, ../sass/layout/_layout.scss */
+/* line 53, ../sass/layout/_layout.scss */
 .height100 {
   height: calc(100% - 50px);
 }
@@ -488,6 +488,10 @@ header .logo img {
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#393186', GradientType=0 );
   /* IE6-9 */
+  -webkit-transition: background 5s ease-in 0;
+  -moz-transition: background 5s ease-in 0;
+  -o-transition: background 5s ease-in 0;
+  transition: background 5s ease-in 0;
 }
 /* line 9, ../sass/layout/_login.scss */
 #login .logo img {
@@ -532,6 +536,26 @@ header .logo img {
   color: #ffffff;
   font-weight: 400;
   padding-left: 5px;
+}
+
+/* line 54, ../sass/layout/_login.scss */
+.loginbackground {
+  background: #ffffff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, #393186 0%) !important;
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #393186)) !important;
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ffffff 0%, #393186 0%) !important;
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ffffff 0%, #393186 0%) !important;
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ffffff 0%, #393186 0%) !important;
+  /* IE10+ */
+  background: linear-gradient(to bottom, #ffffff 0%, #393186 0%) !important;
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#393186', GradientType=0 ) !important;
+  /* IE6-9 */
 }
 
 /* No files to import found in grid/**\/* */

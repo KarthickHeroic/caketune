@@ -2,7 +2,7 @@
 #login{
 
     @include linear-gradient-range(#ffffff, #393186,50%,50%);
-
+    @include single-transition(background, 5s, ease-in, 0);
 
 .logo{   
 	
@@ -50,5 +50,9 @@
     }
 }
 
+}
+.loginbackground
+{
+    @include linear-gradient-range-imp(#ffffff, #393186,0%,0%,!important);
 }
 
