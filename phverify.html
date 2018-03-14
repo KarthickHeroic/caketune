@@ -58,13 +58,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
   <!-- Angular Material Library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-    
-
-    
-    
-  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>    
-     <script src="js/firebaseInit.js"></script>    
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>    
+  <script src="js/firebaseInit.js"></script>    
 
 <script type="text/javascript">   
  var app = angular.module('BlankApp', ['ngMaterial']);
@@ -97,6 +92,18 @@
          window.confirmationResult.confirm($scope.verificationcode)
              .then(function(result) {
              console.log("entry");
+                   var uidd = sessionStorage.getItem('uid');             
+                   var fbemail = sessionStorage.getItem('eml');               
+                   var fbpassword = sessionStorage.getItem('pwd'); 
+                    console.log(fbemail + fbpassword);
+                   var mobileverfyupdate = firebase.database().ref("Users/" + uidd);
+                  mobileverfyupdate.update({
+                      mobile:{
+                          number:fbPhoneNumber,
+                          status:'verified'
+                      }
+                  });
+             
                  var pagelogin = document.getElementById("login");
                  pagelogin.classList.add("loginbackground");
                  phverify.style.display = "none";

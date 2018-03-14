@@ -46,42 +46,53 @@
   <!-- Angular Material Library -->
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-     <script src="js/firebaseInit.js"></script>
+     <script src="js/firebaseInit.js"></script> 
+<!--
+        <script src="js/module.js"></script>  
+        <script src="js/service.js"></script>
+-->
+  
 
-  <!-- Your application bootstrap  -->
-  <script type="text/javascript">   
-   
-    /**
-     * You must include the dependency on 'ngMaterial' 
-     */
-    //  var MyA = angular.module('BlankApp', ['ngMaterial']);
-    // angular.module('BlankApp', ['ngMaterial']);
-  var app = angular.module('BlankApp', ['ngMaterial']);
-  app.controller('myCtrl', function ($scope) {
-    $scope.myFunc = function() {
-      var fbemail = $scope.email; 
-       var fbpassword = $scope.password;
-       var logindetails = firebase.database().ref("Login/");    
-        
-        firebase.auth().signInWithEmailAndPassword(fbemail, fbpassword).then(function(data){
-   var user = firebase.auth().currentUser;
-            var emailVerified = user.emailVerified;
-           if(emailVerified==true)
-               {
-                   
-                   window.location.href = "phverify.html";
-               }
-            else
-                {
-                    alert("Your mail not verified. Please verify your account email address")
-                }
-            
-}
-)
-    }
-   
-
-  });  
+    
+    <script type="text/javascript">
+    var app = angular.module('BlankApp', ['ngMaterial']);
+ app.controller('myCtrl', function($scope) {
+   $scope.myFunc = function() {
+     var fbemail = $scope.email;
+     var fbpassword = $scope.password;
+     var mobileverify;
+     var usersdb = firebase.database().ref("/Users/");
+     firebase.auth().signInWithEmailAndPassword(fbemail, fbpassword).then(function(data) {
+          var user = firebase.auth().currentUser;
+       var uid = user.uid;
+         sessionStorage.setItem('uid', uid);
+       sessionStorage.setItem('eml', fbemail);
+       sessionStorage.setItem('pwd', fbpassword);
+         
+      
+       var emailVerified = user.emailVerified;
+       firebase.database().ref('Users/').once('value').then(function(snapshot) {
+         mobileverify = snapshot.child(uid + "/mobile/status").val();
+         if (emailVerified == true) {
+           if (mobileverify == 'no') {
+             sessionStorage.setItem('eml', fbemail);
+             sessionStorage.setItem('pwd', fbpassword);
+             window.location.href = "phverify.html";
+           } else {
+             window.location.href = "dashboard.html";
+           }
+         } else {
+           alert("Your mail not verified. Please verify your account email address")
+         }
+       });
+     }, function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+             alert(errorMessage);
+          });
+   }
+ });
  
   </script>
   

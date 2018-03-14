@@ -44,6 +44,11 @@
               <div class="signtxt ptop-10">
                 Already have an account?<a href="login.html">Login</a>
               </div>
+               <div id="success">
+                  <h1>Account Created Successful</h1>
+                    Please verify your email!
+                  <p>Click to <a href="login.html">login</a> here!</p>
+              </div>
         </div>
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -69,8 +74,7 @@
           firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).then(function(user) {
               var user = firebase.auth().currentUser;
               user.sendEmailVerification().then(function() {
-            console.log("send");
-            var name, email, password, uidd;
+            var name, email, password,mobile,uidd;
               if (user != null) {
                   name = $scope.name;
                   email = $scope.email;
@@ -78,11 +82,17 @@
                   uidd = user.uid;
                   var logindetails = firebase.database().ref("Users/" + uidd);
                   logindetails.update({
-                      Name: name
+                      Name: name,
+                      mobile:{
+                          number:'',
+                          status:'no'
+                      }
                   });
               }
-}).catch(function(error) {
-  console.log("send-no");
+        }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage);
 });
           
           }, function(error) {
