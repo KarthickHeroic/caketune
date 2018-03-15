@@ -493,52 +493,63 @@ header .logo img {
   -o-transition: background 5s ease-in 0;
   transition: background 5s ease-in 0;
 }
-/* line 10, ../sass/layout/_login.scss */
-#login .logo img {
-  height: 80px;
-}
-/* line 15, ../sass/layout/_login.scss */
-#login .height100 {
-  height: 100%;
-}
-/* line 16, ../sass/layout/_login.scss */
-#login .signupview {
-  width: 400px;
-  height: 550px;
-  background-color: #fff;
-}
-/* line 20, ../sass/layout/_login.scss */
-#login .signupview .loginform {
-  padding: 10px 30px 0 30px;
-}
-/* line 24, ../sass/layout/_login.scss */
-#login .signupview .md-button {
-  min-width: 220px;
-  min-height: 40px;
-}
-/* line 32, ../sass/layout/_login.scss */
-#login .loginview {
-  width: 400px;
-  height: 250px;
-  background-color: #fff;
-}
-/* line 36, ../sass/layout/_login.scss */
-#login .loginview .loginform {
-  padding: 10px 30px 0 30px;
-}
-/* line 42, ../sass/layout/_login.scss */
+/* line 6, ../sass/layout/_login.scss */
 #login .signtxt {
   color: #ffffff;
   font-weight: 300;
 }
-/* line 46, ../sass/layout/_login.scss */
+/* line 10, ../sass/layout/_login.scss */
 #login .signtxt a {
   color: #ffffff;
   font-weight: 400;
   padding-left: 5px;
 }
+/* line 21, ../sass/layout/_login.scss */
+#login .logo img {
+  height: 80px;
+}
+/* line 26, ../sass/layout/_login.scss */
+#login .height100 {
+  height: 100%;
+}
+/* line 28, ../sass/layout/_login.scss */
+#login .signupview, #login .loginview, #login .emailverifyview {
+  width: 400px;
+  height: 250px;
+  background-color: #fff;
+}
+/* line 32, ../sass/layout/_login.scss */
+#login .signupview .viewform, #login .loginview .viewform, #login .emailverifyview .viewform {
+  padding: 10px 30px 0 30px;
+}
+/* line 40, ../sass/layout/_login.scss */
+#login .loginview .input-pwd {
+  margin-bottom: 10px;
+}
+/* line 43, ../sass/layout/_login.scss */
+#login .loginview .input-pwd .md-errors-spacer {
+  min-height: 2px;
+}
+/* line 48, ../sass/layout/_login.scss */
+#login .loginview .forgetpwd {
+  text-align: right;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+/* line 53, ../sass/layout/_login.scss */
+#login .loginview .forgetpwd a {
+  color: #828282;
+}
+/* line 59, ../sass/layout/_login.scss */
+#login .signupview {
+  height: 400px;
+}
+/* line 62, ../sass/layout/_login.scss */
+#login .emailverifyview {
+  height: 165px;
+}
 
-/* line 55, ../sass/layout/_login.scss */
+/* line 69, ../sass/layout/_login.scss */
 .loginbackground {
   background: #ffffff;
   /* Old browsers */
@@ -558,12 +569,12 @@ header .logo img {
   /* IE6-9 */
 }
 
-/* line 59, ../sass/layout/_login.scss */
+/* line 73, ../sass/layout/_login.scss */
 #success {
   text-align: center;
   color: #ffffff;
 }
-/* line 65, ../sass/layout/_login.scss */
+/* line 79, ../sass/layout/_login.scss */
 #success p a {
   color: #ffffff;
 }

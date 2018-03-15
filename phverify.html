@@ -17,8 +17,8 @@
               </div>
               <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
                 <div class="loginview" id="phoneverify">                
-                  <div class="loginform">
-                      <div layout="row">
+                  <div class="viewform">
+                      <div layout="row" flex="100">
                       <md-input-container class="md-block">
                   
                   
@@ -27,13 +27,15 @@
             </md-select>  </md-input-container>
                           
                           
-                           <md-input-container class="md-block">
+                           <md-input-container class="md-block" flex="80">
                     <label>Phone Number</label>
                     <input ng-model="phonenumber">  </md-input-container>
                       </div>    
                       
                       <div id="recaptcha-container"></div>
+                      <div layout="row" layout-align="end center">
                     <md-button class="md-raised md-primary nomargin mtop-15" ng-click="VerifyFunc()">Verify</md-button>
+                      </div>
                   </div>
                 </div>
                    <div class="loginview" id="codeverify">  
@@ -108,11 +110,12 @@
                  pagelogin.classList.add("loginbackground");
                  phverify.style.display = "none";
                  cdverify.style.display = "none";
-                 cdverify.style.display = "none";
                  logo.style.display = "none";
                  success.style.display = "block";
              }, function(error) {
-                 alert(error);
+                  var errorCode = error.code;
+              var errorMessage = error.message;
+             alert("Phone Verify Message:" + errorMessage);
              });
 
      }
