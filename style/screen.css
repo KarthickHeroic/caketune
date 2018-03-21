@@ -513,43 +513,48 @@ header .logo img {
   height: 100%;
 }
 /* line 28, ../sass/layout/_login.scss */
-#login .signupview, #login .loginview, #login .emailverifyview {
+#login .signupview, #login .loginview, #login .emailverifyview, #login .phoneverifyview {
   width: 400px;
   height: 250px;
   background-color: #fff;
+  margin: 0;
 }
-/* line 32, ../sass/layout/_login.scss */
-#login .signupview .viewform, #login .loginview .viewform, #login .emailverifyview .viewform {
+/* line 33, ../sass/layout/_login.scss */
+#login .signupview .viewform, #login .loginview .viewform, #login .emailverifyview .viewform, #login .phoneverifyview .viewform {
   padding: 10px 30px 0 30px;
 }
-/* line 40, ../sass/layout/_login.scss */
+/* line 39, ../sass/layout/_login.scss */
+#login .phoneverifyview {
+  height: 170px;
+}
+/* line 45, ../sass/layout/_login.scss */
 #login .loginview .input-pwd {
   margin-bottom: 10px;
 }
-/* line 43, ../sass/layout/_login.scss */
+/* line 48, ../sass/layout/_login.scss */
 #login .loginview .input-pwd .md-errors-spacer {
   min-height: 2px;
 }
-/* line 48, ../sass/layout/_login.scss */
+/* line 53, ../sass/layout/_login.scss */
 #login .loginview .forgetpwd {
   text-align: right;
   font-size: 13px;
   margin-bottom: 25px;
 }
-/* line 53, ../sass/layout/_login.scss */
+/* line 58, ../sass/layout/_login.scss */
 #login .loginview .forgetpwd a {
   color: #828282;
 }
-/* line 59, ../sass/layout/_login.scss */
+/* line 64, ../sass/layout/_login.scss */
 #login .signupview {
   height: 400px;
 }
-/* line 62, ../sass/layout/_login.scss */
+/* line 67, ../sass/layout/_login.scss */
 #login .emailverifyview {
   height: 165px;
 }
 
-/* line 69, ../sass/layout/_login.scss */
+/* line 74, ../sass/layout/_login.scss */
 .loginbackground {
   background: #ffffff;
   /* Old browsers */
@@ -569,12 +574,12 @@ header .logo img {
   /* IE6-9 */
 }
 
-/* line 73, ../sass/layout/_login.scss */
+/* line 78, ../sass/layout/_login.scss */
 #success {
   text-align: center;
   color: #ffffff;
 }
-/* line 79, ../sass/layout/_login.scss */
+/* line 84, ../sass/layout/_login.scss */
 #success p a {
   color: #ffffff;
 }
