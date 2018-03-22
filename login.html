@@ -13,7 +13,7 @@
                 <img src="images/logo.png" alt="" />
               </div>
               <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
-                <div class="loginview" >                
+                <form class="loginview" novalidate ng-submit="myFunc()">                
                   <div class="viewform">
                     <md-input-container class="md-block">
                       <label>Email</label>
@@ -29,10 +29,10 @@
                       
                     <div layout="row" layout-align="end center">
                     <!-- <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Register</md-button> -->
-                    <md-button class="md-raised md-primary nomargin" ng-click="myFunc()">Register</md-button>
+                    <md-button class="md-raised md-primary nomargin" type="submit">Register</md-button>
                     </div>
                   </div>
-                </div>
+                </form>
               </md-whiteframe>   
                 <div class="signtxt ptop-10">
                  Not a registered user yet?
@@ -57,7 +57,7 @@
 
     
     <script type="text/javascript">
-    var app = angular.module('BlankApp', ['ngMaterial']);
+  var app = angular.module('BlankApp', ['ngMaterial', 'ngMessages']);
  app.controller('myCtrl', function($scope) {
    $scope.myFunc = function() {
      var fbemail = $scope.email;

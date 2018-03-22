@@ -15,30 +15,49 @@
                 <img src="images/logo.png" alt="" />
               </div>
                   <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
-                <div class="signupview" id="signupview">                
+                <form name="new" class="signupview" id="signupview" ng-submit="RegisterFunc()">                
                   <div class="viewform">
                     <md-input-container class="md-block">
                       <label>Name</label>
-                      <input ng-model="name">
+                      <input ng-model="name" required>
+                        <div ng-messages="new.name.$error" ng-show="new.name.$dirty && new.name.$touched && new.name.$pristine">
+                         <div ng-message="required">This is required!</div>
+                        </div>
                     </md-input-container>
+                      
+                      
+                      <md-input-container flex="50">
+          <label>Client Name</label>
+          <input required name="clientName" ng-model="project.clientName">
+          <div ng-messages="clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+                      
+                      
                     <md-input-container class="md-block">
                       <label>Email</label>
-                      <input ng-model="email">
+                      <input ng-model="email" required>
+                         
                     </md-input-container>
                     <md-input-container class="md-block">
                       <label>Password</label>
-                      <input ng-model="password">
+                      <input ng-model="password" required>
+                        <div ng-messages="password.$error">
+                         <div ng-message="required">This is required!</div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                       <label>Confirm Password</label>
-                      <input ng-model="rpassword">
+                      <input ng-model="rpassword" required>
+                        
                     </md-input-container>
                     <div layout="row" layout-align="end center">
                     <!-- <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Register</md-button> -->
-                    <md-button class="md-raised md-primary nomargin" ng-click="RegisterFunc()">Register</md-button>
+                    <md-button type="submit" class="md-raised md-primary nomargin">Register</md-button>
                     </div>  
                   </div>
-                </div>
+                </form>
               </md-whiteframe>   
               <div class="signtxt ptop-10" layout="row" layout-align="center center">
                 Already have an account?<a href="login.html">Login</a>
@@ -74,7 +93,7 @@
          signupcontent.style.display = "flex"; 
 
    
-      var app = angular.module('BlankApp', ['ngMaterial']);
+      var app = angular.module('BlankApp', ['ngMaterial', 'ngMessages']);
   app.controller('myCtrl', function($scope) {
       $scope.RegisterFunc = function() {
           firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).then(function(user) {

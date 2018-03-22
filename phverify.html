@@ -16,37 +16,38 @@
                 <img src="images/logo.png" alt="" />
               </div>
               <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
-                <div class="loginview" id="phoneverify">                
+                <form class="loginview" id="phoneverify" novalidate ng-submit="VerifyFunc()">                
                   <div class="viewform">
                       <div layout="row" flex="100">
                       <md-input-container class="md-block">
                   
                   
-            <md-select ng-model="country" ng-disabled="true" aria-label="country" ng-change="changeCount(country)">
-                    <md-option value="+91" ng-selected="true" > +91 </md-option>
-            </md-select>  </md-input-container>
-                          
-                          
-                           <md-input-container class="md-block" flex="80">
+                    <md-select ng-model="country" ng-disabled="true" aria-label="country" ng-change="changeCount(country)">
+                    <md-option value="+91" ng-selected="true"> +91 </md-option>
+                    </md-select>  </md-input-container>
+                    
+                    <md-input-container class="md-block" flex="80">
                     <label>Phone Number</label>
-                    <input ng-model="phonenumber">  </md-input-container>
+                    <input ng-model="phonenumber" required minlength="10" maxlength="10" >  
+                          
+                          </md-input-container>
                       </div>    
                       
                       <div id="recaptcha-container"></div>
                       <div layout="row" layout-align="end center">
-                    <md-button class="md-raised md-primary nomargin mtop-15" ng-click="VerifyFunc()">Verify</md-button>
+                    <md-button type="submit" class="md-raised md-primary nomargin mtop-15" >Verify</md-button>
                       </div>
                   </div>
-                </div>
-                   <div class="loginview" id="codeverify">  
-                         <div class="loginform">
+                </form>
+                   <form class="phoneverifyview" id="codeverify"  novalidate ng-submit="RegisterFunc()">  
+                         <div class="viewform">
                        <md-input-container class="md-block">
                     <label>Code</label>
-                    <input ng-model="verificationcode">
+                    <input ng-model="verificationcode" required minlength="6" maxlength="6">
                   </md-input-container>
-                         <md-button class="md-raised md-primary nomargin " ng-click="RegisterFunc()">Confirm</md-button>
+                         <md-button type="submit" class="md-raised md-primary nomargin" >Confirm</md-button>
                        </div>
-                  </div>
+                   </form>
               </md-whiteframe>   
               <div id="success">
                   <h1>Signup Successful</h1>
@@ -64,7 +65,7 @@
   <script src="js/firebaseInit.js"></script>    
 
 <script type="text/javascript">   
- var app = angular.module('BlankApp', ['ngMaterial']);
+ var app = angular.module('BlankApp', ['ngMaterial', 'ngMessages']);
  var phverify = document.getElementById("phoneverify");
  var cdverify = document.getElementById("codeverify");
  var logo = document.getElementById("logo");
