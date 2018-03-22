@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style/screen.css">
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
 </head>
-<body ng-app="BlankApp" ng-cloak id="login" ng-controller="myCtrl">
+<body ng-app="BlankApp" ng-cloak id="login" ng-controller="myCtrl as vmPassword">
  
           <div layout="column" layout-align="center center" class="height100">
               <div layout="column" id="signupcontent">
@@ -15,43 +15,45 @@
                 <img src="images/logo.png" alt="" />
               </div>
                   <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
-                <form name="new" class="signupview" id="signupview" ng-submit="RegisterFunc()">                
+                <form name="signupform" class="signupview" id="signupview" ng-submit="RegisterFunc()">                
                   <div class="viewform">
+                      
                     <md-input-container class="md-block">
                       <label>Name</label>
-                      <input ng-model="name" required>
-                        <div ng-messages="new.name.$error" ng-show="new.name.$dirty && new.name.$touched && new.name.$pristine">
-                         <div ng-message="required">This is required!</div>
+                      <input ng-model="txtname" name="clientname" required>
+                        <div ng-messages="signupform.clientname.$error">
+                            <div ng-message="required">This is required.</div>
                         </div>
                     </md-input-container>
-                      
-                      
-                      <md-input-container flex="50">
-          <label>Client Name</label>
-          <input required name="clientName" ng-model="project.clientName">
-          <div ng-messages="clientName.$error">
-            <div ng-message="required">This is required.</div>
-          </div>
-        </md-input-container>
-                      
                       
                     <md-input-container class="md-block">
                       <label>Email</label>
-                      <input ng-model="email" required>
-                         
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                      <label>Password</label>
-                      <input ng-model="password" required>
-                        <div ng-messages="password.$error">
-                         <div ng-message="required">This is required!</div>
+                      <input type="email" name="clientemail" ng-model="txtemail" required ng-pattern="/^.+@.+\..+$/">    
+                        <div ng-messages="signupform.clientemail.$error" role="alert">
+                            <div ng-message-exp="['required', 'pattern']">
+                                Your email must be look like an e-mail address.
+                            </div>
                         </div>
                     </md-input-container>
-                    <md-input-container class="md-block">
-                      <label>Confirm Password</label>
-                      <input ng-model="rpassword" required>
-                        
-                    </md-input-container>
+
+                      
+                       <md-input-container class="md-block" flex-gt-sm>
+        <label>Password</label>
+        <input type="password" name="password" ng-model="vmPassword.password"  ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"  required />
+        <div ng-messages="signupform.password.$error" role="alert">
+               <div ng-message="required">Password is required.</div>
+            <div ng-message="pattern">Password should be at least 8 characters long and should contain 1 number,1 character and 1 special character.</div>
+        </div>
+     </md-input-container>
+
+     <md-input-container class="md-block" flex-gt-sm>
+        <label>Confirm Password</label>
+        <input type="password" name="confirm_password" ng-model="vmPassword.confirm_password" required compare-to="vmPassword.password"/>
+         <div ng-messages="signupform.confirm_password.$error" role="alert">
+             <div ng-message="required">Password is required.</div>
+             <div ng-message="compareTo">Passwords do not match</div>
+         </div>
+    </md-input-container>
                     <div layout="row" layout-align="end center">
                     <!-- <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Register</md-button> -->
                     <md-button type="submit" class="md-raised md-primary nomargin">Register</md-button>
@@ -93,7 +95,7 @@
          signupcontent.style.display = "flex"; 
 
    
-      var app = angular.module('BlankApp', ['ngMaterial', 'ngMessages']);
+      var app = angular.module('BlankApp', ['ngMaterial','ngMessages']);
   app.controller('myCtrl', function($scope) {
       $scope.RegisterFunc = function() {
           firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).then(function(user) {
@@ -134,6 +136,35 @@
           });
       }
 });
+        
+        (function () {
+    "use strict";
+
+    angular.module('BlankApp').directive('compareTo', compareTo);
+
+    compareTo.$inject = [];
+
+    function compareTo() {
+
+        return {
+            require: "ngModel",
+            scope: {
+                compareTolValue: "=compareTo"
+            },
+            link: function(scope, element, attributes, ngModel) {
+
+                ngModel.$validators.compareTo = function(modelValue) {
+
+                    return modelValue == scope.compareTolValue;
+                };
+
+                scope.$watch("compareTolValue", function() {
+                    ngModel.$validate();
+                });
+            }
+        };
+    }
+})();
 
   </script>
 </body>
