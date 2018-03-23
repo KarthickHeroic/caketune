@@ -1,102 +1,66 @@
-<html lang="en" >
+<html lang="en">
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="style/screen.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style/screen.css">
 </head>
-<body ng-app="BlankApp" ng-cloak id="login" ng-controller="myCtrl">
- 
-          <div layout="column" layout-align="center center" class="height100 ">
-              <div class="logo">
-                <img src="images/logo.png" alt="" />
-              </div>
-              <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
-                <form class="loginview" novalidate ng-submit="myFunc()">                
-                  <div class="viewform">
+
+<body ng-app="caketune" ng-cloak id="login" ng-controller="loginCtrl">
+    <div layout="column" layout-align="center center" class="height100">
+        <div class="logo">
+            <img src="images/logo.png" alt="" />
+        </div>
+        <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
+            <form class="loginview" name="loginform" novalidate ng-submit="loginFunc()">
+                <div class="viewform">
                     <md-input-container class="md-block">
-                      <label>Email</label>
-                      <input ng-model="email">
+                        <label>Email</label>
+                        <input type="email" name="clientemail" ng-model="txtemail" required ng-pattern="/^.+@.+\..+$/">    
+                        <div ng-messages="loginform.clientemail.$error" role="alert">
+                            <div ng-message="required">
+                                Please enter e-mail address
+                            </div>
+                            <div ng-message="pattern">
+                                Your email must be look like an e-mail address.
+                            </div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block input-pwd">
-                      <label>Password</label>
-                      <input ng-model="password">
-                    </md-input-container>    
-                      <div class="forgetpwd">
-                       <a href="signup.html">forgot password?</a>
-                      </div>
-                      
-                    <div layout="row" layout-align="end center">
-                    <!-- <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Register</md-button> -->
-                    <md-button class="md-raised md-primary nomargin" type="submit">Register</md-button>
+                        <label>Password</label>
+                        <input type="password" ng-model="txtpassword" name="loginpassword" required>
+                          <div ng-messages="loginform.loginpassword.$error" role="alert">
+                        <div ng-message="required">
+                            Please enter password
+                        </div>
+                        </div>
+                    </md-input-container>
+                    <div class="forgetpwd">
+                        <a href="signup.html">forgot password?</a>
                     </div>
-                  </div>
-                </form>
-              </md-whiteframe>   
-                <div class="signtxt ptop-10">
-                 Not a registered user yet?
-                  <a href="signup.html">Sign up now!</a>
+                    <div layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary nomargin" type="submit">Login</md-button>
+                    </div>
                 </div>
+            </form>
+        </md-whiteframe>
+        <div class="signtxt ptop-10">
+            Not a registered user yet?
+            <a href="signup.html">Sign up now!</a>
         </div>
-  
-  <!-- Angular Material requires Angular.js Libraries -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-  <!-- Angular Material Library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-     <script src="js/firebaseInit.js"></script> 
-<!--
-        <script src="js/module.js"></script>  
-        <script src="js/service.js"></script>
--->
-  
-
-    
-    <script type="text/javascript">
-  var app = angular.module('BlankApp', ['ngMaterial', 'ngMessages']);
- app.controller('myCtrl', function($scope) {
-   $scope.myFunc = function() {
-     var fbemail = $scope.email;
-     var fbpassword = $scope.password;
-     var mobileverify;
-     var usersdb = firebase.database().ref("/Users/");
-     firebase.auth().signInWithEmailAndPassword(fbemail, fbpassword).then(function(data) {
-          var user = firebase.auth().currentUser;
-       var uid = user.uid;
-         sessionStorage.setItem('uid', uid);
-       sessionStorage.setItem('eml', fbemail);
-       sessionStorage.setItem('pwd', fbpassword);
-         
-      
-       var emailVerified = user.emailVerified;
-       firebase.database().ref('Users/').once('value').then(function(snapshot) {
-         mobileverify = snapshot.child(uid + "/mobile/status").val();
-         if (emailVerified == true) {
-           if (mobileverify == 'no') {
-             sessionStorage.setItem('eml', fbemail);
-             sessionStorage.setItem('pwd', fbpassword);
-             window.location.href = "phverify.html";
-           } else {
-             window.location.href = "dashboard.html";
-           }
-         } else {
-           alert("Your mail not verified. Please verify your account email address")
-         }
-       });
-     }, function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-             alert(errorMessage);
-          });
-   }
- });
- 
-  </script>
-  
+    </div>
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <!-- Angular Material Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src="js/firebaseInit.js"></script>
+       <script src="js/credentials.js"></script>
 </body>
+
 </html>

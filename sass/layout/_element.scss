@@ -4,3 +4,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 md-input-container:not(.md-input-invalid).md-input-focused label {
     color: $maincolor;
 }
+input:focus{color:$maincolor !important;}
+input[type="password"] {font-size:40px;color:$maincolor;}
+.md-input-message-animation{font-style: italic}
+

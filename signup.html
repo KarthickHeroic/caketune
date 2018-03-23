@@ -1,171 +1,98 @@
-<html lang="en" >
+<html lang="en">
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
-  <link rel="stylesheet" href="style/screen.css">
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style/screen.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
 </head>
-<body ng-app="BlankApp" ng-cloak id="login" ng-controller="myCtrl as vmPassword">
- 
-          <div layout="column" layout-align="center center" class="height100">
-              <div layout="column" id="signupcontent">
-              <div class="logo" layout="row" layout-align="center center">
+
+<body ng-app="caketune" ng-cloak id="login" ng-controller="signupCtrl as vmPassword">
+
+    <div layout="column" layout-align="center center" class="height100">
+        <div layout="column" id="signupcontent">
+            <div class="logo" layout="row" layout-align="center center">
                 <img src="images/logo.png" alt="" />
-              </div>
-                  <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
-                <form name="signupform" class="signupview" id="signupview" ng-submit="RegisterFunc()">                
-                  <div class="viewform">
-                      
-                    <md-input-container class="md-block">
-                      <label>Name</label>
-                      <input ng-model="txtname" name="clientname" required>
-                        <div ng-messages="signupform.clientname.$error">
-                            <div ng-message="required">This is required.</div>
-                        </div>
-                    </md-input-container>
-                      
-                    <md-input-container class="md-block">
-                      <label>Email</label>
-                      <input type="email" name="clientemail" ng-model="txtemail" required ng-pattern="/^.+@.+\..+$/">    
-                        <div ng-messages="signupform.clientemail.$error" role="alert">
-                            <div ng-message-exp="['required', 'pattern']">
-                                Your email must be look like an e-mail address.
+            </div>
+            <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
+                <form name="signupform" class="signupview" id="signupview" ng-submit="signupFunc()" ng-pristine ng-invalid>
+                    <div class="viewform">
+
+                        <md-input-container class="md-block">
+                            <label>Name</label>
+                            <input ng-model="txtname" name="clientname" required>
+                            <div ng-messages="signupform.clientname.$error">
+                                <div ng-message="required">This is required.</div>
                             </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Email</label>
+                            <input type="email" name="clientemail" ng-model="txtemail" required ng-pattern="/^.+@.+\..+$/">
+                            <div ng-messages="signupform.clientemail.$error" role="alert">
+                                <div ng-message="required">
+                                    Please enter e-mail address
+                                </div>
+                                <div ng-message="pattern">
+                                    Your email must be look like an e-mail address.
+                                </div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Password</label>
+                            <input type="password" name="password" ng-model="vmPassword.password" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/" required />
+                            <div ng-messages="signupform.password.$error" role="alert">
+                                <div ng-message="required">Password is required.</div>
+                                <div ng-message="pattern">Password should be at least 8 characters long and should contain 1 number,1 character and 1 special character.</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirm_password" ng-model="vmPassword.confirm_password" required compare-to="vmPassword.password" />
+                            <div ng-messages="signupform.confirm_password.$error" role="alert">
+                                <div ng-message="required">Password is required.</div>
+                                <div ng-message="compareTo">Passwords do not match</div>
+                            </div>
+                        </md-input-container>
+                        <div layout="row" layout-align="end center">                          
+                            <md-button type="submit" class="md-raised md-primary nomargin">Register</md-button>
                         </div>
-                    </md-input-container>
-
-                      
-                       <md-input-container class="md-block" flex-gt-sm>
-        <label>Password</label>
-        <input type="password" name="password" ng-model="vmPassword.password"  ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"  required />
-        <div ng-messages="signupform.password.$error" role="alert">
-               <div ng-message="required">Password is required.</div>
-            <div ng-message="pattern">Password should be at least 8 characters long and should contain 1 number,1 character and 1 special character.</div>
-        </div>
-     </md-input-container>
-
-     <md-input-container class="md-block" flex-gt-sm>
-        <label>Confirm Password</label>
-        <input type="password" name="confirm_password" ng-model="vmPassword.confirm_password" required compare-to="vmPassword.password"/>
-         <div ng-messages="signupform.confirm_password.$error" role="alert">
-             <div ng-message="required">Password is required.</div>
-             <div ng-message="compareTo">Passwords do not match</div>
-         </div>
-    </md-input-container>
-                    <div layout="row" layout-align="end center">
-                    <!-- <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Register</md-button> -->
-                    <md-button type="submit" class="md-raised md-primary nomargin">Register</md-button>
-                    </div>  
-                  </div>
+                    </div>
                 </form>
-              </md-whiteframe>   
-              <div class="signtxt ptop-10" layout="row" layout-align="center center">
+            </md-whiteframe>
+            <div class="signtxt ptop-10" layout="row" layout-align="center center">
                 Already have an account?<a href="login.html">Login</a>
-              </div>
-              </div>
-                <div id="success">
-                  <h1>Account Created Successful</h1>
-                    Please verify your email!
-                  <p>Click to <a href="login.html">login</a> here!</p>
-              </div>
+            </div>
         </div>
-  
-  <!-- Angular Material requires Angular.js Libraries -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-    
-  <!-- Angular Material Library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-  <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
+        <div id="success">
+            <h1>Account Created Successful</h1> Please verify your email!
+            <p>Click to <a href="login.html">login</a> here!</p>
+        </div>
+    </div>
+
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.js"></script>
 
     <!-- Firebase config -->
-  <script src="js/firebaseInit.js"></script>
-  
+    <script src="js/firebaseInit.js"></script>
+    <script src="js/credentials.js"></script>
+    <script src="js/directives.js"></script>
+
     <!-- angular connection  -->
-    <script type="text/javascript">     
-        
-         var success = document.getElementById("success");
-         success.style.display = "none";
-         var signupcontent = document.getElementById("signupcontent");
-         signupcontent.style.display = "flex"; 
-
-   
-      var app = angular.module('BlankApp', ['ngMaterial','ngMessages']);
-  app.controller('myCtrl', function($scope) {
-      $scope.RegisterFunc = function() {
-          firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).then(function(user) {
-              var user = firebase.auth().currentUser;
-              user.sendEmailVerification().then(function() {
-            var name, email, password,mobile,uidd;
-              if (user != null) {
-                  name = $scope.name;
-                  email = $scope.email;
-                  password = $scope.password;
-                  uidd = user.uid;
-                  var logindetails = firebase.database().ref("Users/" + uidd);
-                  logindetails.update({
-                      Name: name,
-                      mobile:
-                      {
-                          number:'',
-                          status:'no'
-                      }
-                  });
-        var pagelogin = document.getElementById("login");
-        pagelogin.classList.add("loginbackground");
-        signupcontent.style.display = "none";
-         success.style.display = "block";
-                  
-              }
-        }).catch(function(error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert("Email Verification" + errorMessage);
-});
-          
-          }, function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-             alert("SignUp:" + errorMessage);
-          });
-      }
-});
-        
-        (function () {
-    "use strict";
-
-    angular.module('BlankApp').directive('compareTo', compareTo);
-
-    compareTo.$inject = [];
-
-    function compareTo() {
-
-        return {
-            require: "ngModel",
-            scope: {
-                compareTolValue: "=compareTo"
-            },
-            link: function(scope, element, attributes, ngModel) {
-
-                ngModel.$validators.compareTo = function(modelValue) {
-
-                    return modelValue == scope.compareTolValue;
-                };
-
-                scope.$watch("compareTolValue", function() {
-                    ngModel.$validate();
-                });
-            }
-        };
-    }
-})();
-
-  </script>
+    <script type="text/javascript">
+    </script>
 </body>
+
 </html>

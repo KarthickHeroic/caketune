@@ -25,7 +25,7 @@
 }
 .height100{height: 100%;}
 
-.signupview, .loginview, .emailverifyview, .phoneverifyview{
+.signupview, .loginview, .emailverifyview, .phoneverifyview,.verificationcodeview{
     width: 400px;
     height: 250px; 
     background-color:#fff;    
@@ -36,10 +36,7 @@
     }    
 
 }
-    .phoneverifyview
-    {
-        height: 170px;
-    }
+
 .loginview
     {
         .input-pwd
@@ -67,6 +64,10 @@ font-size: 13px;
 .emailverifyview
     {
         height: 165px;
+    }
+    .verificationcodeview
+    {
+        height: 170px;
     }
 
 

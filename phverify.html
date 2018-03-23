@@ -9,41 +9,45 @@
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.2/firebaseui.css" />
 
 </head>
-<body ng-app="BlankApp" ng-cloak id="login" ng-controller="myCtrl">
+<body ng-app="caketune" ng-cloak id="login" ng-controller="phoneverifyCtrl">
  
           <div layout="column" layout-align="center center" class="height100 ">
               <div class="logo" id="logo">
                 <img src="images/logo.png" alt="" />
               </div>
               <md-whiteframe class="md-whiteframe-3dp" layout-align="center center">
-                <form class="loginview" id="phoneverify" novalidate ng-submit="VerifyFunc()">                
+                <form class="phoneverifyview" name="phoneverifyform" id="phoneverify" novalidate ng-submit="VerifyFunc()">                
                   <div class="viewform">
                       <div layout="row" flex="100">
                       <md-input-container class="md-block">
-                  
-                  
                     <md-select ng-model="country" ng-disabled="true" aria-label="country" ng-change="changeCount(country)">
                     <md-option value="+91" ng-selected="true"> +91 </md-option>
                     </md-select>  </md-input-container>
-                    
                     <md-input-container class="md-block" flex="80">
                     <label>Phone Number</label>
-                    <input ng-model="phonenumber" required minlength="10" maxlength="10" >  
-                          
+                    <input ng-model="phonenumber" name="number" required minlength="10" maxlength="10" ng-pattern="/^[0-9]*$/"> 
+                        <div ng-messages="phoneverifyform.number.$error">
+                            <div ng-message="required">Phone number is required.</div>
+                            <div ng-message-exp="['minlength','maxlength']">Invalide Phone Number. Please verify, Must be a 10 digit.</div>
+                             <div ng-message="pattern">Please enter only numbers</div>
+                        </div>
                           </md-input-container>
                       </div>    
-                      
                       <div id="recaptcha-container"></div>
                       <div layout="row" layout-align="end center">
                     <md-button type="submit" class="md-raised md-primary nomargin mtop-15" >Verify</md-button>
                       </div>
                   </div>
                 </form>
-                   <form class="phoneverifyview" id="codeverify"  novalidate ng-submit="RegisterFunc()">  
+                   <form class="verificationcodeview" name="verificationcodeform" id="codeverify"  novalidate ng-submit="RegisterFunc()">  
                          <div class="viewform">
-                       <md-input-container class="md-block">
+                 <md-input-container class="md-block">
                     <label>Code</label>
-                    <input ng-model="verificationcode" required minlength="6" maxlength="6">
+                    <input ng-model="verificationcode" name="numbercode" required minlength="6" maxlength="6">
+                      <div ng-messages="verificationcodeform.numbercode.$error">
+                            <div ng-message="required">Phone number is required.</div>
+                            <div ng-message-exp="['minlength','maxlength']">Invalide code. Please verify, Must be a 6 digit.</div>
+                        </div>
                   </md-input-container>
                          <md-button type="submit" class="md-raised md-primary nomargin" >Confirm</md-button>
                        </div>
@@ -62,65 +66,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
   <!-- Angular Material Library -->
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>    
-  <script src="js/firebaseInit.js"></script>    
+  <script src="js/firebaseInit.js"></script> 
+        <script src="js/credentials.js"></script>
 
 <script type="text/javascript">   
- var app = angular.module('BlankApp', ['ngMaterial', 'ngMessages']);
- var phverify = document.getElementById("phoneverify");
- var cdverify = document.getElementById("codeverify");
- var logo = document.getElementById("logo");
- var success = document.getElementById("success");
- var fbPhoneNumber; success.style.display = "none";
- cdverify.style.display = "none";
- logo.style.display = "block";
- app.controller('myCtrl', function($scope) {
-     $scope.changeCount = function(obj) {
-         fbPhoneNumber = obj;         
-         fbPhoneNumber = fbPhoneNumber;  
-     };
-     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-     recaptchaVerifier.render().then(function(widgetId) {
-         window.recaptchaWidgetId = widgetId;
-     });
-     $scope.VerifyFunc = function() {
-           fbPhoneNumber = fbPhoneNumber + $scope.phonenumber;
-         firebase.auth().signInWithPhoneNumber(fbPhoneNumber, window.recaptchaVerifier)
-             .then(function(confirmationResult) {
-                 window.confirmationResult = confirmationResult;
-                 phverify.style.display = "none";
-                 cdverify.style.display = "block";
-             });
-     }
-     $scope.RegisterFunc = function() {
-         window.confirmationResult.confirm($scope.verificationcode)
-             .then(function(result) {
-             console.log("entry");
-                   var uidd = sessionStorage.getItem('uid');             
-                   var fbemail = sessionStorage.getItem('eml');               
-                   var fbpassword = sessionStorage.getItem('pwd'); 
-                    console.log(fbemail + fbpassword);
-                   var mobileverfyupdate = firebase.database().ref("Users/" + uidd);
-                  mobileverfyupdate.update({
-                      mobile:{
-                          number:fbPhoneNumber,
-                          status:'verified'
-                      }
-                  });
-             
-                 var pagelogin = document.getElementById("login");
-                 pagelogin.classList.add("loginbackground");
-                 phverify.style.display = "none";
-                 cdverify.style.display = "none";
-                 logo.style.display = "none";
-                 success.style.display = "block";
-             }, function(error) {
-                  var errorCode = error.code;
-              var errorMessage = error.message;
-             alert("Phone Verify Message:" + errorMessage);
-             });
-
-     }
- });
 </script> 
 </body>
 </html>
