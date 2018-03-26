@@ -35,7 +35,7 @@
                       </div>    
                       <div id="recaptcha-container"></div>
                       <div layout="row" layout-align="end center">
-                    <md-button type="submit" class="md-raised md-primary nomargin mtop-15" >Verify</md-button>
+                    <md-button type="submit" class="md-raised md-primary nomargin mtop-15" ng-click="formValid=phoneverifyform.$valid">Verify</md-button>
                       </div>
                   </div>
                 </form>
@@ -49,7 +49,7 @@
                             <div ng-message-exp="['minlength','maxlength']">Invalide code. Please verify, Must be a 6 digit.</div>
                         </div>
                   </md-input-container>
-                         <md-button type="submit" class="md-raised md-primary nomargin" >Confirm</md-button>
+                         <md-button type="submit" class="md-raised md-primary nomargin" ng-click="formValid=verificationcodeform.$valid">Confirm</md-button>
                        </div>
                    </form>
               </md-whiteframe>   

@@ -9,8 +9,12 @@ app.controller('signupCtrl', function($scope) {
 success.style.display = "none";
 var signupcontent = document.getElementById("signupcontent");
 signupcontent.style.display = "flex";
-    $scope.signupFunc = function() {
-        debugger;
+  
+    $scope.formValid=false;
+    $scope.signupFunc = function() {        
+        if(!$scope.formValid){
+                          return;
+        }
         firebase.auth().createUserWithEmailAndPassword($scope.txtemail, $scope.vmPassword.confirm_password).then(function(user) {
             var user = firebase.auth().currentUser;
             user.sendEmailVerification().then(function() {
@@ -52,6 +56,9 @@ signupcontent.style.display = "flex";
 //login 
 app.controller('loginCtrl', function($scope) {
             $scope.loginFunc = function() {
+                        if(!$scope.formValid){
+                          return;
+        }
                 var fbemail = $scope.txtemail;
                 var fbpassword = $scope.txtpassword;
                 var mobileverify;
@@ -107,6 +114,9 @@ app.controller('loginCtrl', function($scope) {
          window.recaptchaWidgetId = widgetId;
      });
      $scope.VerifyFunc = function() {
+                 if(!$scope.formValid){
+                          return;
+        }
            fbPhoneNumber = fbPhoneNumber + $scope.phonenumber;
          firebase.auth().signInWithPhoneNumber(fbPhoneNumber, window.recaptchaVerifier)
              .then(function(confirmationResult) {
@@ -116,6 +126,9 @@ app.controller('loginCtrl', function($scope) {
              });
      }
      $scope.RegisterFunc = function() {
+                 if(!$scope.formValid){
+                          return;
+        }
          window.confirmationResult.confirm($scope.verificationcode)
              .then(function(result) {
              console.log("entry");
@@ -155,6 +168,9 @@ app.controller('loginCtrl', function($scope) {
                 success.style.display = "none";
         var pagelogin = document.getElementById("login");
    $scope.myFunc = function() {
+               if(!$scope.formValid){
+                          return;
+        }
      var fbemail = $scope.email;
      var usersdb = firebase.database().ref("/Users/");
      firebase.auth().sendPasswordResetEmail(fbemail).then(function() {

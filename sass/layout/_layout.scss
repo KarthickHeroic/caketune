@@ -45,8 +45,17 @@ background-color: $whitecolor;
 
 }
 .height100{
-    height: calc(100% - 50px);
+    min-    height: calc(100% - 50px);
 }
+
+.logo{   
+	
+    img
+    {
+    height: 50px;
+    }    
+}
+
 
 
 
