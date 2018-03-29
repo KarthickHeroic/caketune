@@ -16,7 +16,7 @@
       
         <div layout="row" class="height100 leftmenu" >
         <div flex="15">
-          <md-list-item href="index.html">
+          <md-list-item href="dashboard.html">
             <i class="material-icons">home</i>
             <p class="mleft-10">Dashboard</p>
           </md-list-item>
@@ -41,7 +41,7 @@
                             <img src="images/id-card.svg" alt="" />
                             <!-- <md-icon md-svg-src="/images/logo1.svg"></md-icon> -->
                         </md-button>
-                        <p>Add Bakery Details</p>
+                        <p>Add Main Details</p>
                     </div>  
                     <div layout="column" layout-align="center center" class="mright-20">
                         <md-button class="md-fab circledisable" aria-label="Add Branch">
@@ -61,12 +61,12 @@
               
                   <div class="contentview">
                       <md-content md-whiteframe="1">
-                        <div class="formtitle">Add Bakery Details</div>
+                        <div class="formtitle">Add  Details</div>
                         <div layout-padding>
                           <div layout="row">
                              <div flex="66" class="pright-15"> 
                                 <md-input-container class="md-block">
-                                  <label>Bakery Name</label>
+                                  <label>Name</label>
                                   <input ng-model="user.name">
                                 </md-input-container>
                               </div>
@@ -74,7 +74,7 @@
                                   <choose-file layout="row" flex="100">
                                       <input id="fileInput" type="file" class="ng-hide">
                                       <md-input-container flex class="md-block">
-                                          <label>Bakery Logo</label>
+                                          <label>Logo</label>
                                         <input type="text" ng-model="fileName">
                                         <div class="hint">Select your logo</div>
                                       </md-input-container>
@@ -117,28 +117,26 @@
                                      <label>State</label>
                                      <input ng-model="user.name">
                                    </md-input-container>
-                                 </div>
-                                 <div flex="33"> 
+                                </div>
+                                <div flex="33"> 
                                      <md-input-container class="md-block">
                                        <label>Pin Code</label>
                                        <input ng-model="user.name">
                                      </md-input-container>
-                                   </div>
+                                </div>
                            </div>   
                            <div layout="row">
                             <div flex="33" class="pright-15"> 
                                 <md-input-container class="md-block">
                                     <label>Registration Number</label>
                                     <input ng-model="user.name">
-                                  </md-input-container>
+                                </md-input-container>
                               </div>
                               </div>
-
-                              <div layout="row" layout-align="end center">
-                                  <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Next</md-button>
-                                  </div>
+                                <div layout="row" layout-align="end center">
+                                    <md-button class="md-raised md-primary nomargin" ng-href="dashboard.html" >Next</md-button>
                                 </div>
-                          
+                                </div>
                       </md-content>
                       
                     </div> 

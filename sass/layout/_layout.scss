@@ -9,26 +9,19 @@ body{
     background-color: $primarycolor; 
     font-family: $mainFont; 
 }
-
-
 *{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-
-
 :after, :before {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 img {
     vertical-align: middle;
 }
-
 .img-responsive{
     display: block;
     max-width: 100%;
@@ -40,24 +33,13 @@ height:50px;
 position: relative;
 background-color: $whitecolor;
 @include box-shadow(0px, 0px, 6px, 2px, #c3c3c3);
-
-
-
 }
 .height100{
-    min-    height: calc(100% - 50px);
+    min-height: calc(100% - 50px);
 }
-
 .logo{   
-	
     img
     {
     height: 50px;
     }    
 }
-
-
-
-
-
-
